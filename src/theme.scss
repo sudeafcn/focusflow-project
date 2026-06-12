@@ -1,0 +1,30 @@
+// FocusFlow Renk Paleti ve Tema Değişkenleri (CSS Variables)
+
+:root {
+  // Ortak Renkler (Hem açık hem koyu temada değişmeyecek)
+  --color-primary: #2563eb;       // Canlı Marka Mavisi
+  --color-primary-hover: #1d4ed8; // Buton hover rengi
+  --color-success: #16a34a;       // Yeşil (Onay)
+  
+  // AÇIK TEMA (Varsayılan)
+  --bg-color: #ffffff;            // Arka plan beyaz
+  --text-color: #1e293b;          // Yazı rengi koyu gri/siyah
+  --card-bg: #f8fafc;             // Kart arka planı
+  --border-color: #e2e8f0;        // Çizgi ve kenarlıklar
+}
+
+// KOYU TEMA 
+[data-theme='dark'] {
+  --bg-color: #0f172a;            // Gece mavisi arka plan
+  --text-color: #f8fafc;          // Yazı rengi beyaz
+  --card-bg: #1e293b;             // Kart arka planı koyu
+  --border-color: #334155;        // Koyu kenarlık
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}

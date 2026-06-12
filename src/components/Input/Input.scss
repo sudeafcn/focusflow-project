@@ -1,0 +1,53 @@
+.ff-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  margin-bottom: 16px;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .ff-input-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  .ff-input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    outline: none;
+    transition: all 0.2s ease;
+
+    // Tıklandığında parlayacak kurumsal mavi halka
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    &::placeholder {
+      color: #94a3b8;
+    }
+  }
+
+  // Hata durumu aktifse kırmızı stiller devreye girsin
+  &--error {
+    .ff-input {
+      border-color: #ef4444;
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+      }
+    }
+    .ff-input-error-text {
+      font-size: 0.75rem;
+      color: #ef4444;
+      font-weight: 500;
+    }
+  }
+}

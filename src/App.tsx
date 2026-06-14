@@ -325,19 +325,26 @@ function App() {
               <>
                 <p>Ekibiniz için özel çalışma alanını hazırlıyoruz. Lütfen takım detaylarını girin:</p>
                 <div className="ff-modal-inputs">
-                  <Input label="Şirket / Takım Adı" placeholder="Örn: FocusFlow Team" onChange={() => {}} />
-                <input 
-  type="number" 
-  placeholder="Ekip Sayısı"
-  min={1} 
-  max={15} 
+                  <input
+  type="number"
+  min={1}
+  max={15}
   onInput={(e) => {
     if (Number(e.currentTarget.value) > 15) {
       e.currentTarget.value = '15';
       alert('Takım planında maksimum 15 kişi eklenebilir.');
     }
   }}
-  /* className veya onChange gibi senin projendeki diğer özellikler aynen kalsın */
+  placeholder="Ekip Sayısı (Max: 15)"
+  style={{
+    width: '100%',
+    padding: '12px',
+    borderRadius: '8px',
+    border: '1px solid #d1d5db',
+    fontFamily: 'inherit',
+    fontSize: '1rem',
+    marginTop: '15px'
+  }}
 />
                 </div>
               </>

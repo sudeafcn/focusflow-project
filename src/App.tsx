@@ -104,7 +104,22 @@ function App() {
     });
   };
 
+// --- TIMER VE GÖREV SENKRONİZASYON KODLARI ---
+  // Akıştaki ilk görevi aktif görev olarak kabul ediyoruz
+  const activeTask = tasks.length > 0 ? tasks[0] : null; 
+  const currentSessions = activeTask ? activeTask.pomodoros : 0;
 
+  // Süre bittiğinde görevin seans sayısını otomatik 1 azaltan fonksiyon
+  const handleSessionComplete = () => {
+    if (!activeTask) return;
+    setTasks((prevTasks) => prevTasks.map(task => {
+      if (task.id === activeTask.id && task.pomodoros > 0) {
+        return { ...task, pomodoros: task.pomodoros - 1 };
+      }
+      return task;
+    }));
+  };
+  // ---------------------------------------------
   return (
     <div className="ff-landing-page">
       {/* NAVBAR */}
@@ -209,8 +224,10 @@ function App() {
             </div>
 
             <div className="ff-workspace-timer-wrapper">
-              <Timer taskCount={tasks.length} />
-            </div>
+<Timer 
+  sessionsLeft={currentSessions} 
+  onSessionComplete={handleSessionComplete} 
+/>            </div>
 
           </div>
 

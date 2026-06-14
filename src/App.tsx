@@ -308,7 +308,8 @@ function App() {
                 <p>Ekibiniz için özel çalışma alanını hazırlıyoruz. Lütfen takım detaylarını girin:</p>
                 <div className="ff-modal-inputs">
                   <Input label="Şirket / Takım Adı" placeholder="Örn: FocusFlow Team" onChange={() => {}} />
-                  <Input label="Ekipteki Kişi Sayısı" type="number" placeholder="Örn: 12" onChange={() => {}} />
+                  <Input label="Ekipteki Kişi Sayısı" type="number" min={1}
+  max={15} placeholder="Örn: 12" onChange={() => {}} />
                 </div>
               </>
             ) : (

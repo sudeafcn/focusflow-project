@@ -104,7 +104,7 @@ function App() {
     });
   };
 
-// --- TIMER VE GÖREV SENKRONİZASYON KODLARI ---
+  // --- TIMER VE GÖREV SENKRONİZASYON KODLARI ---
   // Listede henüz tamamlanmamış (isCompleted: false) ilk görevi hedef al
   const activeTask = tasks.find(task => !task.isCompleted) || tasks[0] || null; 
   const currentSessions = activeTask ? activeTask.pomodoros : 0;
@@ -120,7 +120,7 @@ function App() {
     }));
   };
   // ---------------------------------------------
-  // ---------------------------------------------
+
   return (
     <div className="ff-landing-page">
       {/* NAVBAR */}
@@ -225,10 +225,11 @@ function App() {
             </div>
 
             <div className="ff-workspace-timer-wrapper">
-<Timer 
-  sessionsLeft={currentSessions} 
-  onSessionComplete={handleSessionComplete} 
-/>            </div>
+              <Timer 
+                sessionsLeft={currentSessions} 
+                onSessionComplete={handleSessionComplete} 
+              />            
+            </div>
 
           </div>
 
@@ -315,7 +316,7 @@ function App() {
         <p>© {new Date().getFullYear()} FocusFlow AI. Tüm Hakları Saklıdır.</p>
       </footer>
 
-      {/* DÜZENLENMİŞ MODAL ALANI (TAKIM İÇİN FARKLI, BİREYSEL İÇİN FARKLI EKRAN) */}
+      {/* DÜZENLENMİŞ KUSURSUZ MODAL ALANI */}
       {isModalOpen && (
         <div className="ff-modal-overlay">
           <div className="ff-modal-box">
@@ -323,34 +324,48 @@ function App() {
             
             {selectedPlan === 'Enterprise (Takım)' ? (
               <>
-                <p>Ekibiniz için özel çalışma alanını hazırlıyoruz. Lütfen takım detaylarını girin:</p>
-                <div className="ff-modal-inputs">
-                  <input
-  type="number"
-  min={1}
-  max={15}
-  onInput={(e) => {
-    if (Number(e.currentTarget.value) > 15) {
-      e.currentTarget.value = '15';
-      alert('Takım planında maksimum 15 kişi eklenebilir.');
-    }
-  }}
-  placeholder="Ekip Sayısı (Max: 15)"
-  style={{
-    width: '100%',
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #d1d5db',
-    fontFamily: 'inherit',
-    fontSize: '1rem',
-    marginTop: '15px'
-  }}
-/>
+                <p style={{ marginBottom: '20px', color: 'var(--text-color, #4b5563)' }}>
+                  Ekibiniz için özel çalışma talimatlarını hazırlıyoruz. Lütfen takım detaylarını girin:
+                </p>
+                <div className="ff-modal-inputs" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  
+                  {/* Şirket / Takım Adı Kutusu */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: 'bold', marginBottom: '8px', textAlign: 'left' }}>
+                      Şirket / Takım Adı
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Örn: FocusFlow Ekibi"
+                      style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontFamily: 'inherit', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }}
+                    />
+                  </div>
+
+                  {/* Ekip Sayısı Kutusu */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: 'bold', marginBottom: '8px', textAlign: 'left' }}>
+                      Ekip Sayısı (Max: 15)
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={15}
+                      placeholder="Örn: 5"
+                      onInput={(e) => {
+                        if (Number(e.currentTarget.value) > 15) {
+                          e.currentTarget.value = '15';
+                          alert('Takım planında maksimum 15 kişi eklenebilir.');
+                        }
+                      }}
+                      style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontFamily: 'inherit', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }}
+                    />
+                  </div>
+
                 </div>
               </>
             ) : (
               <>
-                <p>Plan kurulumu için yapay zeka modelinizin davranış biçimini (Akış) kalibre edin:</p>
+                <p style={{ marginBottom: '20px' }}>Plan kurulumu için yapay zeka modelinizin davranış biçimini (Akış) kalibre edin:</p>
                 <Select 
                   label="Model Hassasiyeti Seçin" 
                   options={[
@@ -363,39 +378,29 @@ function App() {
               </>
             )}
 
-<div className="ff-modal-inputs">
-  {/* 1. Kutu: Şirket / Takım Adı */}
-  <Input label="Şirket / Takım Adı" placeholder="Örn: FocusFlow Ekibi" onChange={() => {}} />
+            {/* --- MODAL BUTONLARI (HER KOŞULDA GÖRÜNECEK) --- */}
+            <div className="ff-modal-actions" style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '30px' }}>
+              <button
+                type="button"
+                className="btn"
+                style={{ backgroundColor: '#6b7280', color: 'white', minWidth: '120px' }}
+                onClick={() => setIsModalOpen(false)}
+              >
+                İptal
+              </button>
 
-  {/* 2. Kutu: Ekip Sayısı (Başlıklı ve Sınırlı) */}
-  <div style={{ marginTop: '15px' }}>
-    <label style={{ display: 'block', fontSize: '14px', fontWeight: 'bold', marginBottom: '5px', color: '#374151', textAlign: 'left' }}>
-      Ekip Sayısı (Max: 15)
-    </label>
-    <input
-      type="number"
-      min={1}
-      max={15}
-      placeholder="Örn: 5"
-      onInput={(e) => {
-        if (Number(e.currentTarget.value) > 15) {
-          e.currentTarget.value = '15';
-          alert('Takım planında maksimum 15 kişi eklenebilir.');
-        }
-      }}
-      style={{
-        width: '100%',
-        padding: '12px',
-        borderRadius: '8px',
-        border: '1px solid #d1d5db',
-        fontFamily: 'inherit',
-        fontSize: '1rem',
-        outline: 'none',
-        boxSizing: 'border-box'
-      }}
-    />
-  </div>
-</div>
+              <button
+                type="button"
+                className="btn"
+                style={{ minWidth: '120px' }}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  alert("İşlem başarıyla tamamlandı! Sisteme yönlendiriliyorsunuz.");
+                }}
+              >
+                İşlemi Tamamla
+              </button>
+            </div>
 
           </div>
         </div>

@@ -1,0 +1,99 @@
+.ff-task-list-card {
+  width: 100%;
+  
+  .ff-list-title {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .ff-empty-message {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 30px;
+    background-color: var(--bg-color);
+    border-radius: 12px;
+    border: 1px dashed var(--border-color);
+  }
+
+  .ff-tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ff-task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: var(--color-primary);
+      transform: translateX(4px);
+    }
+
+    &.is-completed {
+      opacity: 0.5;
+      background-color: var(--bg-color);
+      border-color: transparent;
+      
+      .ff-task-item-title {
+        text-decoration: line-through;
+        color: var(--text-muted);
+      }
+
+      &:hover { transform: none; border-color: transparent; }
+    }
+  }
+
+  .ff-task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .ff-task-item-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .ff-task-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .ff-task-item-category {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background-color: var(--bg-color);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .ff-task-pomodoro-badge {
+      font-size: 0.8rem;
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+
+  .ff-task-actions {
+    display: flex;
+    gap: 8px;
+  }
+}

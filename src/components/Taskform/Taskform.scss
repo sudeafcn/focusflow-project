@@ -1,0 +1,27 @@
+.ff-task-form {
+  background-color: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
+  .ff-form-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color, #1e293b);
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .ff-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    
+    button {
+      width: 100%; // Mobilde ve kart içinde tam genişlik kaplasın
+    }
+  }
+}

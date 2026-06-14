@@ -1,0 +1,107 @@
+.ff-timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.ff-timer-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+  .ff-timer-icon {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 700;
+  }
+}
+
+// AKTİF GÖREV EKRANI
+.ff-active-task-display {
+  background-color: rgba(var(--border-color), 0.2);
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  width: 100%;
+  text-align: center;
+  
+  p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  
+  strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    margin-top: 4px;
+  }
+}
+
+// ÇALIŞMA VE MOLA SEKMELERİ
+.ff-timer-modes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  background-color: rgba(var(--border-color), 0.3);
+  padding: 6px;
+  border-radius: 30px;
+
+  .ff-mode-btn {
+    background: none;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.active {
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+// SAYAÇ EKRANI
+.ff-timer-display {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-bottom: 30px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  transition: color 0.3s ease;
+
+  &.is-running {
+    color: var(--color-primary);
+  }
+  
+  &.is-break {
+    color: var(--color-success);
+  }
+}
+
+// ALT BUTONLAR
+.ff-timer-actions {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  
+  button {
+    flex: 1;
+  }
+}

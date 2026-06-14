@@ -1,0 +1,84 @@
+import React from 'react';
+import { Button } from '../Button/Button';
+import './TaskList.scss';
+
+export interface Task {
+  id: string;
+  title: string;
+  category: string;
+  priority: 'high' | 'medium' | 'low';
+  pomodoros: number;
+  isCompleted: boolean;
+}
+
+interface TaskListProps {
+  tasks: Task[];
+  activeTaskId?: string | null;
+  onDeleteTask: (id: string) => void;
+  onToggleComplete: (id: string) => void;
+  onSelectActiveTask: (id: string) => void;
+}
+
+export const TaskList: React.FC<TaskListProps> = ({ tasks, activeTaskId, onDeleteTask, onToggleComplete, onSelectActiveTask }) => {
+  const getPriorityInfo = (prio: string) => {
+    switch (prio) {
+      case 'high': return { label: '🔥 Yüksek', color: '#ef4444' };
+      case 'medium': return { label: '⚡ Orta', color: '#f59e0b' };
+      case 'low': return { label: '🧊 Düşük', color: '#3b82f6' };
+      default: return { label: 'Belirsiz', color: '#64748b' };
+    }
+  };
+
+  return (
+    <div className="ff-task-list-card">
+      <h3 className="ff-list-title">📋 Yapay Zeka Akışındaki Görevler ({tasks.length})</h3>
+      
+      {tasks.length === 0 ? (
+        <p className="ff-empty-message">Şu an akışta aktif görev yok. Yukarıdaki AI motoruna bir görev yazın! ✨</p>
+      ) : (
+        <div className="ff-tasks-container">
+          {tasks.map((task) => {
+            const prioInfo = getPriorityInfo(task.priority);
+            const isActive = activeTaskId === task.id;
+
+            return (
+              <div key={task.id} className={`ff-task-item ${task.isCompleted ? 'is-completed' : ''} ${isActive ? 'is-active-task' : ''}`}>
+                <div className="ff-task-info">
+                  <span className="ff-task-item-title">{task.title}</span>
+                  <div className="ff-task-meta">
+                    <span className="ff-task-item-category" style={{ color: prioInfo.color, fontWeight: 'bold' }}>
+                      {prioInfo.label}
+                    </span>
+                    <span className="ff-task-pomodoro-badge">
+                      {task.pomodoros > 0 ? `🍅 Kalan: ${task.pomodoros} Seans` : '✅ Görev Bitti'}
+                    </span>
+                  </div>
+                </div>
+                <div className="ff-task-actions">
+                  {!task.isCompleted && (
+                    <Button 
+                      variant={isActive ? 'primary' : 'secondary'} 
+                      size="sm" 
+                      onClick={() => onSelectActiveTask(task.id)}
+                    >
+                      {isActive ? '🎯 Odaklanılıyor' : 'Buna Odaklan'}
+                    </Button>
+                  )}
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    onClick={() => onToggleComplete(task.id)}
+                    style={{ borderColor: task.isCompleted ? '#94a3b8' : '#10b981', color: task.isCompleted ? '#94a3b8' : '#10b981' }}
+                  >
+                    {task.isCompleted ? 'Geri Al' : 'Tamamla ✓'}
+                  </Button>
+                  <Button variant="secondary" size="sm" onClick={() => onDeleteTask(task.id)} style={{ color: '#ef4444' }}>Sil</Button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};

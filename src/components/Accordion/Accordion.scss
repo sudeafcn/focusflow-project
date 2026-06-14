@@ -1,0 +1,55 @@
+.ff-accordion {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .ff-accordion-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+
+    &.is-open {
+      border-color: var(--color-primary);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
+    }
+  }
+
+  .ff-accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+
+    &:hover, &:focus-visible {
+      background-color: rgba(37, 99, 235, 0.04);
+      outline: none;
+    }
+  }
+
+  .ff-accordion-icon {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    font-weight: bold;
+  }
+
+  .ff-accordion-content {
+    padding: 0 24px 24px 24px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}

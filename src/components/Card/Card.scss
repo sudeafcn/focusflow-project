@@ -1,0 +1,58 @@
+.ff-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  text-align: left;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  .ff-card-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .ff-card-icon {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  .ff-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+  }
+
+  .ff-card-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .ff-card-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 12px;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

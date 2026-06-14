@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from './components/Button/Button';
 import { Input } from './components/Input/Input';
 import { Select } from './components/Select/Select';
-import { Timer } from './components/Timer/Timer';
+import Timer from './components/Timer/Timer';
 import { TaskList, type Task } from './components/tasklist/TaskList';
 import './App.scss';
 
@@ -104,16 +104,6 @@ function App() {
     });
   };
 
-  const handleSessionComplete = (taskId: string) => {
-    setTasks(prevTasks => prevTasks.map(task => {
-      if (task.id === taskId && task.pomodoros > 0) {
-        return { ...task, pomodoros: task.pomodoros - 1 };
-      }
-      return task;
-    }));
-  };
-
-  const activeTask = tasks.find(t => t.id === activeTaskId) || null;
 
   return (
     <div className="ff-landing-page">
@@ -219,7 +209,7 @@ function App() {
             </div>
 
             <div className="ff-workspace-timer-wrapper">
-              <Timer activeTask={activeTask} onSessionComplete={handleSessionComplete} />
+              <Timer />
             </div>
 
           </div>

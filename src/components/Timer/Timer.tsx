@@ -1,5 +1,3 @@
-// src/components/Timer/Timer.tsx
-
 import { useState, useEffect } from 'react';
 import '../Button/Button.scss'; // Buton stillerini içeri aktarıyoruz
 
@@ -19,14 +17,13 @@ export default function Timer() {
       // Süre bittiğinde çalışacak işlemler:
       setIsActive(false);
       clearInterval(interval);
-      setSessionsLeft((prev) => (prev > 0 ? prev - 1 : 0)); // Seansı 1 düşür (0'dan aşağı inmesin)
+      setSessionsLeft((prev) => (prev > 0 ? prev - 1 : 0)); // Seansı 1 düşür
       
-      // Eğer seans 0 olduysa farklı, olmadıysa farklı mesaj ver:
       if (sessionsLeft === 1) {
         alert("Tebrikler! Tüm odaklanma seanslarını tamamladın.");
       } else {
         alert("Süre doldu! Bir odaklanma seansını başarıyla tamamladın. Lütfen mola ver.");
-        setSeconds(25 * 60); // Bir sonraki seans için süreyi otomatik 25 dakikaya kur
+        setSeconds(25 * 60); // Bir sonraki seans için süreyi otomatik ayarla
       }
     }
 
@@ -49,7 +46,6 @@ export default function Timer() {
   return (
     <div className="timer-container" style={{ textAlign: 'center', padding: '20px', backgroundColor: 'var(--bg-color)', borderRadius: '12px' }}>
       
-      {/* Kalan Seans Sayısını Gösteren Başlık */}
       <h3 style={{ margin: '0', fontSize: '1.2rem', opacity: 0.8, fontWeight: '500' }}>
         Kalan Seans: {sessionsLeft}
       </h3>
@@ -62,14 +58,14 @@ export default function Timer() {
         <button 
           className="btn" 
           onClick={toggleTimer} 
-          disabled={sessionsLeft === 0} // Eğer seans bittiyse Başlat butonunu devre dışı bırak
+          disabled={sessionsLeft === 0}
         >
           {isActive ? 'Durdur' : 'Başlat'}
         </button>
         
+        {/* Kırmızı Sıfırla Butonu */}
         <button 
-          className="btn" 
-          style={{ backgroundColor: '#ef4444' }} 
+          className="btn btn-danger" 
           onClick={resetTimer}
         >
           Sıfırla

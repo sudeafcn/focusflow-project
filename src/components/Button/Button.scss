@@ -1,30 +1,64 @@
 
-/* src/components/Button/Button.scss */
 
-.btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-family: inherit;
-  background-color: #3b82f6; /* Canlı Mavi */
-  color: #ffffff !important; /* Yazı rengi her zaman beyaz kalacak */
-  transition: all 0.3s ease;
+.btn, button.btn, .timer-container button.btn {
+  display: inline-block !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  text-align: center !important;
+  transition: all 0.2s ease !important;
+  
+  /* Garanti Görünürlük */
   opacity: 1 !important;
   visibility: visible !important;
-  display: inline-block;
-  text-align: center;
+  transform: none !important;
 
-  &:hover {
-    background-color: #1d4ed8 !important; /* Üstüne gelince daha koyu mavi */
-    color: #ffffff !important;
-    transform: translateY(-2px);
+  /* VARSAYILAN DURUM (Canlı Mavi Arka Plan, Beyaz Yazı) */
+  background-color: #3b82f6 !important; /* Mavi */
+  color: #ffffff !important;           /* Yazı Beyaz */
+
+  /* HOVER DURUMU (Üstüne Gelince) */
+  /* Hem class'ı hem :hover'ı zorlayarak global kuralları eziyoruz */
+  &:hover, &.btn:hover, button.btn:hover {
+    /* Görünmez olmaması için Arka Planı daha Koyu Mavi yapıyoruz */
+    background-color: #1d4ed8 !important; /* Daha Koyu Mavi */
+    
+    /* Yazı renginin BEYAZ kalmasını GARANTİ ediyoruz (En kritik satır) */
+    color: #ffffff !important;           
+    
+    /* Globalden gelebilecek kaybolma efektlerini sıfırla */
     opacity: 1 !important;
     visibility: visible !important;
+    transform: translateY(-2px) !important; /* Hafif kalkma efekti (opsiyonel) */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
   }
 
+  /* TIKLAMA DURUMU */
   &:active {
-    transform: translateY(0);
+    transform: translateY(1px) !important;
+    box-shadow: none !important;
+  }
+
+  /* Devre Dışı Durumu (Seans bittiğinde) */
+  &:disabled {
+    background-color: #9ca3af !important; /* Gri */
+    color: #d1d5db !important;
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+  }
+}
+
+/* src/components/Button/Button.scss dosyasının en altı */
+
+.btn-danger, button.btn-danger {
+  background-color: #ef4444 !important; /* Kırmızı */
+  color: #ffffff !important;
+
+  &:hover, &.btn-danger:hover {
+    background-color: #b91c1c !important; /* Koyu Kırmızı */
+    color: #ffffff !important;
   }
 }

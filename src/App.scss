@@ -91,55 +91,39 @@ input[type="submit"]:hover {
   background-color: #1d4ed8 !important;
   color: white !important;
 }
-
-/* 2. TELEFON EKRANLARI İÇİN ÖZEL KURALLAR (Mobildeki kayma sorunu için) */
+/* === SADECE MOBİL GÖREV KARTLARI ESTETİK DÜZENLEMESİ === */
 @media screen and (max-width: 768px) {
-  
-  /* Dar ekranlarda yan yana sığmayan butonları akıllıca alt satıra sarmasına izin ver */
-  div[style*="display: flex"],
-  .ff-workspace-bottom div,
-  .timer-container div {
-    flex-wrap: wrap !important; 
-    gap: 8px !important;
-  }
+  .ff-workspace-bottom {
+    
+    /* Görev kartını (li) mobilde dikey düzene geçirir */
+    li {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 15px !important;
+      height: auto !important;
+      padding: 15px !important;
+    }
 
-  /* Mobilde butonları biraz küçült ve genişliklerini ekrana uydur */
-  button, 
-  .btn {
-    font-size: 0.85rem !important; 
-    padding: 8px 12px !important;
-    flex: 1 1 auto !important; /* Esnek kutu yapısı: Ekranı eşit paylaşırlar */
-    white-space: normal !important; /* Uzun yazılar dışarı taşmak yerine alt satıra geçer */
+    /* Butonları saran grubu (genellikle kartın son div'idir) tam genişliğe alır */
+    li > div:last-child {
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important; /* Butonları yan yana sıkıştırmak yerine alt alta dizer */
+      gap: 10px !important;
+    }
+
+    /* Butonları dokunmatik ekran için geniş, ferah ve estetik bloklar yapar */
+    button {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 12px 0 !important;
+      font-size: 15px !important;
+      border-radius: 8px !important;
+      text-align: center !important;
+      justify-content: center !important;
+    }
   }
 }
-/* =========================================
-   GÖREV KARTLARI (TASK LIST) MOBİL TAŞMA ÇÖZÜMÜ
-   ========================================= */
-@media screen and (max-width: 768px) {
-  
-  /* Görev kutusunun kendisini (sol yazılar ve sağ butonlar) alt alta dizmeye zorla */
-  .ff-workspace-bottom li,
-  .ff-workspace-bottom [style*="display: flex"],
-  .ff-workspace-bottom [style*="justify-content: space-between"] {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    height: auto !important;
-    gap: 15px !important;
   }
 
-  /* Butonları saran div'i %100 genişliğe al ve sarmala */
-  .ff-workspace-bottom div {
-    flex-wrap: wrap !important;
-    width: 100% !important;
-  }
-
-  /* Görev kartının içindeki butonların boyutlarını mobilde akıllıca paylaştır */
-  .ff-workspace-bottom button {
-    width: 100% !important;        /* Butonları satıra tam yay */
-    margin: 0 !important;          /* Saçma boşlukları sıfırla */
-    margin-bottom: 8px !important; /* Alt alta binerken araya boşluk koy */
-    white-space: normal !important; 
-    font-size: 0.9rem !important;
-  }
-}
-}

@@ -209,7 +209,7 @@ function App() {
             </div>
 
             <div className="ff-workspace-timer-wrapper">
-              <Timer />
+              <Timer taskCount={tasks.length} />
             </div>
 
           </div>
@@ -308,8 +308,19 @@ function App() {
                 <p>Ekibiniz için özel çalışma alanını hazırlıyoruz. Lütfen takım detaylarını girin:</p>
                 <div className="ff-modal-inputs">
                   <Input label="Şirket / Takım Adı" placeholder="Örn: FocusFlow Team" onChange={() => {}} />
-                  <Input label="Ekipteki Kişi Sayısı" type="number" min={1}
-  max={15} placeholder="Örn: 12" onChange={() => {}} />
+                <input 
+  type="number" 
+  placeholder="Ekip Sayısı"
+  min={1} 
+  max={15} 
+  onInput={(e) => {
+    if (Number(e.currentTarget.value) > 15) {
+      e.currentTarget.value = '15';
+      alert('Takım planında maksimum 15 kişi eklenebilir.');
+    }
+  }}
+  /* className veya onChange gibi senin projendeki diğer özellikler aynen kalsın */
+/>
                 </div>
               </>
             ) : (

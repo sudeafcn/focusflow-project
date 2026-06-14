@@ -1,94 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '../Button/Button';
-import type { Task } from '../tasklist/TaskList';
-import './Timer.scss';
+// src/components/Timer/Timer.tsx
 
-interface TimerProps {
-  activeTask?: Task | null;
-  onSessionComplete?: (taskId: string) => void;
-}
+import { useState, useEffect } from 'react';
+import '../Button/Button.scss'; // Buton stillerini içeri aktarıyoruz
 
-export const Timer: React.FC<TimerProps> = ({ activeTask, onSessionComplete }) => {
-  const [mode, setMode] = useState<'work' | 'break'>('work');
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
-  const [isRunning, setIsRunning] = useState(false);
+export default function Timer() {
+  const [seconds, setSeconds] = useState(25 * 60); // 25 Dakika
+  const [isActive, setIsActive] = useState(false);
+  const [sessionsLeft, setSessionsLeft] = useState(4); // Başlangıç seans sayısı
 
   useEffect(() => {
-    let interval: number | undefined;
+    let interval: any = null;
 
-    if (isRunning && timeLeft > 0) {
-      interval = window.setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
+    if (isActive && seconds > 0) {
+      interval = setInterval(() => {
+        setSeconds((prev) => prev - 1);
       }, 1000);
-    } else if (isRunning && timeLeft === 0) {
-      setIsRunning(false);
+    } else if (seconds === 0) {
+      // Süre bittiğinde çalışacak işlemler:
+      setIsActive(false);
+      clearInterval(interval);
+      setSessionsLeft((prev) => (prev > 0 ? prev - 1 : 0)); // Seansı 1 düşür (0'dan aşağı inmesin)
       
-      if (mode === 'work') {
-        // Çalışma bitti, görevden 1 seans düş ve Molaya geç
-        if (activeTask && onSessionComplete) {
-          onSessionComplete(activeTask.id);
-        }
-        setMode('break');
-        setTimeLeft(5 * 60);
-        alert('🎉 Harika! 1 Seans bitti. Şimdi 5 dakika mola zamanı ☕');
+      // Eğer seans 0 olduysa farklı, olmadıysa farklı mesaj ver:
+      if (sessionsLeft === 1) {
+        alert("Tebrikler! Tüm odaklanma seanslarını tamamladın.");
       } else {
-        // Mola bitti, Çalışmaya geri dön
-        setMode('work');
-        setTimeLeft(25 * 60);
-        alert('🔔 Mola bitti! Yeni bir odaklanma seansına hazır mısın? 🚀');
+        alert("Süre doldu! Bir odaklanma seansını başarıyla tamamladın. Lütfen mola ver.");
+        setSeconds(25 * 60); // Bir sonraki seans için süreyi otomatik 25 dakikaya kur
       }
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, timeLeft, mode, activeTask, onSessionComplete]);
+  }, [isActive, seconds, sessionsLeft]);
 
-  const toggleTimer = () => setIsRunning(!isRunning);
-  
+  const toggleTimer = () => setIsActive(!isActive);
+
   const resetTimer = () => {
-    setIsRunning(false);
-    setTimeLeft(mode === 'work' ? 25 * 60 : 5 * 60);
+    setIsActive(false);
+    setSeconds(25 * 60);
   };
 
-  const switchMode = (newMode: 'work' | 'break') => {
-    setIsRunning(false);
-    setMode(newMode);
-    setTimeLeft(newMode === 'work' ? 25 * 60 : 5 * 60);
+  const formatTime = (totalSeconds: number) => {
+    const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+    const remainingSeconds = (totalSeconds % 60).toString().padStart(2, '0');
+    return `${minutes}:${remainingSeconds}`;
   };
-
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
 
   return (
-    <div className="ff-timer-container">
-      <div className="ff-timer-header">
-        <span className="ff-timer-icon">{mode === 'work' ? '⏱️' : '☕'}</span>
-        <h4>{mode === 'work' ? 'Odaklanma Modu' : 'Mola Zamanı'}</h4>
-      </div>
-
-      {/* AKTİF GÖREV GÖSTERGESİ */}
-      <div className="ff-active-task-display">
-        {activeTask ? (
-          <p>Şu an odaklanılan görev:<br/><strong>{activeTask.title}</strong></p>
-        ) : (
-          <p><em>Önce listeden bir göreve odaklanın.</em></p>
-        )}
-      </div>
-
-      <div className="ff-timer-modes">
-        <button className={`ff-mode-btn ${mode === 'work' ? 'active' : ''}`} onClick={() => switchMode('work')}>Çalışma (25m)</button>
-        <button className={`ff-mode-btn ${mode === 'break' ? 'active' : ''}`} onClick={() => switchMode('break')}>Mola (5m)</button>
-      </div>
-
-      <div className={`ff-timer-display ${isRunning ? 'is-running' : ''} ${mode === 'break' ? 'is-break' : ''}`}>
-        {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
-      </div>
+    <div className="timer-container" style={{ textAlign: 'center', padding: '20px', backgroundColor: 'var(--bg-color)', borderRadius: '12px' }}>
       
-      <div className="ff-timer-actions">
-        <Button variant={mode === 'work' ? 'primary' : 'secondary'} size="md" onClick={toggleTimer}>
-          {isRunning ? 'Duraklat' : 'Başlat'}
-        </Button>
-        <Button variant="secondary" size="md" onClick={resetTimer}>Sıfırla</Button>
+      {/* Kalan Seans Sayısını Gösteren Başlık */}
+      <h3 style={{ margin: '0', fontSize: '1.2rem', opacity: 0.8, fontWeight: '500' }}>
+        Kalan Seans: {sessionsLeft}
+      </h3>
+      
+      <h2 style={{ fontSize: '3rem', margin: '15px 0', fontWeight: 'bold' }}>
+        {formatTime(seconds)}
+      </h2>
+      
+      <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
+        <button 
+          className="btn" 
+          onClick={toggleTimer} 
+          disabled={sessionsLeft === 0} // Eğer seans bittiyse Başlat butonunu devre dışı bırak
+        >
+          {isActive ? 'Durdur' : 'Başlat'}
+        </button>
+        
+        <button 
+          className="btn" 
+          style={{ backgroundColor: '#ef4444' }} 
+          onClick={resetTimer}
+        >
+          Sıfırla
+        </button>
       </div>
     </div>
   );
-};
+}

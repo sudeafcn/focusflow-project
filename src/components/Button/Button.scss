@@ -1,27 +1,30 @@
-.ff-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
-  font-weight: 500;
-  border-radius: 6px;
-  border: 1px solid transparent;
+
+/* src/components/Button/Button.scss */
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #3b82f6; /* Canlı Mavi */
+  color: #ffffff !important; /* Yazı rengi her zaman beyaz kalacak */
+  transition: all 0.3s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block;
+  text-align: center;
 
-  &--primary {
-    background-color: var(--color-primary);
-    color: #ffffff;
-    &:hover { background-color: var(--color-primary-hover); }
+  &:hover {
+    background-color: #1d4ed8 !important; /* Üstüne gelince daha koyu mavi */
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
-  &--secondary {
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border-color: var(--border-color);
+  &:active {
+    transform: translateY(0);
   }
-
-  &--sm { padding: 6px 12px; font-size: 0.875rem; }
-  &--md { padding: 10px 20px; font-size: 1rem; }
-  &--lg { padding: 14px 28px; font-size: 1.125rem; }
 }

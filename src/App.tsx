@@ -363,10 +363,39 @@ function App() {
               </>
             )}
 
-            <div className="ff-modal-actions">
-              <Button variant="secondary" size="sm" onClick={() => setIsModalOpen(false)}>İptal</Button>
-              <Button variant="primary" size="sm" onClick={() => { alert('İşlem başarıyla tamamlandı!'); setIsModalOpen(false); }}>İşlemi Tamamla</Button>
-            </div>
+<div className="ff-modal-inputs">
+  {/* 1. Kutu: Şirket / Takım Adı */}
+  <Input label="Şirket / Takım Adı" placeholder="Örn: FocusFlow Ekibi" onChange={() => {}} />
+
+  {/* 2. Kutu: Ekip Sayısı (Başlıklı ve Sınırlı) */}
+  <div style={{ marginTop: '15px' }}>
+    <label style={{ display: 'block', fontSize: '14px', fontWeight: 'bold', marginBottom: '5px', color: '#374151', textAlign: 'left' }}>
+      Ekip Sayısı (Max: 15)
+    </label>
+    <input
+      type="number"
+      min={1}
+      max={15}
+      placeholder="Örn: 5"
+      onInput={(e) => {
+        if (Number(e.currentTarget.value) > 15) {
+          e.currentTarget.value = '15';
+          alert('Takım planında maksimum 15 kişi eklenebilir.');
+        }
+      }}
+      style={{
+        width: '100%',
+        padding: '12px',
+        borderRadius: '8px',
+        border: '1px solid #d1d5db',
+        fontFamily: 'inherit',
+        fontSize: '1rem',
+        outline: 'none',
+        boxSizing: 'border-box'
+      }}
+    />
+  </div>
+</div>
           </div>
         </div>
       )}

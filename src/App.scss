@@ -112,4 +112,34 @@ input[type="submit"]:hover {
     white-space: normal !important; /* Uzun yazılar dışarı taşmak yerine alt satıra geçer */
   }
 }
+/* =========================================
+   GÖREV KARTLARI (TASK LIST) MOBİL TAŞMA ÇÖZÜMÜ
+   ========================================= */
+@media screen and (max-width: 768px) {
+  
+  /* Görev kutusunun kendisini (sol yazılar ve sağ butonlar) alt alta dizmeye zorla */
+  .ff-workspace-bottom li,
+  .ff-workspace-bottom [style*="display: flex"],
+  .ff-workspace-bottom [style*="justify-content: space-between"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    height: auto !important;
+    gap: 15px !important;
+  }
+
+  /* Butonları saran div'i %100 genişliğe al ve sarmala */
+  .ff-workspace-bottom div {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  /* Görev kartının içindeki butonların boyutlarını mobilde akıllıca paylaştır */
+  .ff-workspace-bottom button {
+    width: 100% !important;        /* Butonları satıra tam yay */
+    margin: 0 !important;          /* Saçma boşlukları sıfırla */
+    margin-bottom: 8px !important; /* Alt alta binerken araya boşluk koy */
+    white-space: normal !important; 
+    font-size: 0.9rem !important;
+  }
+}
 }

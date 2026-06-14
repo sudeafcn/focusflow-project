@@ -17,6 +17,32 @@
     visibility: visible !important;
   }
 </style>
+<style>
+  
+  @media screen and (max-width: 768px) {
+  
+    .ff-workspace-bottom div,
+    .ff-workspace-bottom ul,
+    .ff-workspace-bottom li {
+      flex-direction: column !important;
+      flex-wrap: wrap !important;
+      height: auto !important;
+    }
+
+  
+    .ff-workspace-bottom button {
+      width: 100% !important;
+      display: block !important;
+      margin: 8px 0 !important;
+      padding: 12px 10px !important;
+      font-size: 15px !important;
+      box-sizing: border-box !important;
+      border-radius: 8px !important;
+      white-space: normal !important; 
+      flex: 1 1 100% !important;
+    }
+  }
+</style>
   </head>
   <body>
     <div id="root"></div>

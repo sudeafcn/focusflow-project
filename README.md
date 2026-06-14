@@ -1,5 +1,7 @@
 # ⚡ FocusFlow AI - Yapay Zeka Destekli Zaman Yönetimi platformu
 
+🌍 **Canlı Demo (Live Preview):** [Projeyi İncelemek İçin Tıklayın](https://focusflow-project-xc3a.vercel.app/)
+
 FocusFlow AI; kullanıcıların çalışma alışkanlıklarını analiz eden, görevlerin bilişsel yüküne göre ideal Pomodoro seanslarını tahmin eden ve işleri öncelik sırasına koyarak derin odaklanma (Deep Work) sağlayan kurumsal seviyede bir **Zaman Yönetimi ve Landing Page (Ürün Tanıtım) platformudur**. 
 
 Bu proje, esnek bileşen mimarisi (UI Library), gelişmiş state yönetimi ve kullanıcı deneyimi (UX) standartları göz önünde bulundurularak hibrit bir yapıda geliştirilmiştir.
@@ -41,14 +43,16 @@ Bu proje, esnek bileşen mimarisi (UI Library), gelişmiş state yönetimi ve ku
 ### 🔹 3. Gün: Çekirdek Görev ve Zaman Yönetimi Altyapısı
 - Görev ekleme, silme ve durum güncelleme dinamikleri için gerekli React state yapıları kuruldu.
 - Görevlerin durumuna göre (`isCompleted`) arayüzde görsel olarak biçimlendirilmesini (üstünün çizilmesi, opaklık ayarı) sağlayan mantıksal süreçler tamamlandı.
-
-### 🔹 4. Gün: 6 Kategorili AI Motoru ve Akıllı Sıralama Algoritması
 - İş dünyasından popüler 6 gelişmiş kategori (Yazılım, Akademi, Finans, Pazarlama, Strateji, Kişisel Gelişim) sisteme entegre edildi.
 - Görevlerin önem derecesine göre otomatik olarak yukarıda listelenmesini sağlayan **Öncelik Tabanlı Sıralama Algoritması** kodlandı.
+
+### 🔹 4. Gün: 6 Kategorili AI Motoru ve Akıllı Sıralama Algoritması
 - `Timer` bileşeni, aktif görevi tanıyacak ve çalışma bittiğinde o görevden otomatik seans düşecek şekilde optimize edildi. 5 dakikalık mola fonksiyonu entegre edildi.
 - Enterprise (Takım) planı için kişi sayısı ve departman alan kurumsal lead toplama modalı ile bireysel planlar için model hassasiyet kalibrasyonu modalları optimize edildi.
 - Sass derleme pürüzleri giderildi ve proje sıfır hata ile üretime hazır hale getirildi.
-
+- Geliştirme (`dev`) ortamında tamamlanan kodlar, üretim (`main`) ortamına güvenli bir şekilde aktarıldı (Git Merge işlemi).
+- Vercel üzerindeki katı TypeScript derleme (build) süreçlerinden geçebilmek adına; kullanılmayan eski bileşenler (örn: eski Taskform) ve "Ghost Process" yaratan dosyalar tespit edilerek projeden temizlendi (Code Refactoring).
+- Proje, Vite altyapısı kullanılarak **Vercel** platformuna entegre edildi. Başarılı bir şekilde canlı (Live) yayına alınarak son kullanıcı ve jüri testine hazır hale getirildi.
 ---
 
 ## 📦 Kurulum ve Çalıştırma

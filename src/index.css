@@ -16,9 +16,30 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
 body { background-color: var(--bg-color); color: var(--text-color); }
-button:hover, .btn:hover, .btn-danger:hover {
-  background-color: #1d4ed8 !important;
-  color: #ffffff !important;
+/* Sitedeki Tüm Butonları Modern ve Mavi Yapmaya Zorlayan Kural */
+button, 
+.btn, 
+input[type="submit"],
+input[type="button"] {
+  background-color: #3b82f6 !important; /* Canlı Mavi Arka Plan */
+  color: #ffffff !important;           /* Bembeyaz Yazı */
+  padding: 12px 24px !important;       /* Butonu Tombullaştıran İç Boşluklar */
+  border-radius: 8px !important;       /* Yuvarlak Köşeler */
+  border: none !important;             /* O çirkin siyah çerçeveyi siler */
+  cursor: pointer !important;          /* Üzerine gelince el işareti çıkar */
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  font-family: inherit !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Üzerine Gelince (Hover) Görünmez Olmayı Engelleyen ve Rengi Koyulaştıran Kural */
+button:hover, 
+.btn:hover, 
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #1d4ed8 !important; /* Daha Koyu Mavi */
+  color: #ffffff !important;            /* Yazı kesinlikle beyaz kalır */
   opacity: 1 !important;
   visibility: visible !important;
 }

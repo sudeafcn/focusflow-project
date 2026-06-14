@@ -55,4 +55,11 @@ Bu proje, esnek bileşen mimarisi (UI Library), gelişmiş state yönetimi ve ku
 
 1. Proje bağımlılıklarını yükleyin:
 ```bash
-npm install
+npm install 
+```
+
+2. Projeyi lokal sunucuda başlatın:
+```bash
+npm run dev
+```
+

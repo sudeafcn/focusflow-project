@@ -27,6 +27,14 @@ Bu proje, esnek bileşen mimarisi (UI Library), gelişmiş state yönetimi ve ku
 - **Paket Yönetimi:** NPM
 
 ---
+## 🚀 Performans ve Lighthouse Skoru
+Proje, gereksinimlerde belirtilen minimum 90/100 performans hedefini başarıyla aşmıştır.
+![Lighthouse Skoru](./lighthouse.jpeg)
+
+## 🏗️ Mimari Notlar ve Karar Kayıtları (ADR)
+- **Erişilebilirlik (a11y) Tercihi:** SSS (Accordion) bölümünde harici bir React state yönetimi kullanmak yerine, native HTML5 `<details>` ve `<summary>` etiketleri kullanılarak klavye gezintisi ve ekran okuyucu uyumluluğu maksimize edilmiştir.
+- **State Yönetimi:** Proje küçük ölçekli olduğu için Redux veya Context API yerine React'in yerleşik `useState` kancası ile component prop-drilling yapısı kullanılmıştır.
+- **Stil Mimarisi:** Modüler SCSS tercih edilmiş olup, tüm renk paletleri `:root` altında CSS değişkenleri olarak tanımlanmış, bu sayede karanlık mod entegrasyonu O(1) karmaşıklığında çözülmüştür.
 
 ## 📅 Gün Gün Geliştirme Süreci (Sprint Log)
 

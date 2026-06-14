@@ -18,28 +18,34 @@
   }
 </style>
 <style>
-  
-  @media screen and (max-width: 768px) {
-  
-    .ff-workspace-bottom div,
-    .ff-workspace-bottom ul,
-    .ff-workspace-bottom li {
-      flex-direction: column !important;
-      flex-wrap: wrap !important;
-      height: auto !important;
+@media screen and (max-width: 768px) {
+    /* 1. Flexbox'ı tamamen iptal edip her şeyi alt alta inen bloklara çeviriyoruz */
+    .ff-workspace-bottom li,
+    .ff-workspace-bottom li div,
+    .ff-workspace-bottom li span {
+      display: block !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      text-align: left !important;
     }
 
-  
+    /* 2. Görev kartını toparla */
+    .ff-workspace-bottom li {
+      padding: 15px !important;
+      margin-bottom: 15px !important;
+      border-radius: 12px !important;
+    }
+
+    /* 3. Butonları geniş, kalın ve dokunulabilir alt alta bloklar yap */
     .ff-workspace-bottom button {
-      width: 100% !important;
       display: block !important;
-      margin: 8px 0 !important;
-      padding: 12px 10px !important;
-      font-size: 15px !important;
-      box-sizing: border-box !important;
+      width: 100% !important;
+      margin: 10px 0 0 0 !important; /* Sadece üstten boşluk bırakarak alt alta dizer */
+      padding: 12px !important;
       border-radius: 8px !important;
-      white-space: normal !important; 
-      flex: 1 1 100% !important;
+      font-size: 15px !important;
+      white-space: normal !important;
+      box-sizing: border-box !important;
     }
   }
 </style>

@@ -5,27 +5,14 @@
   --text-muted: #64748b;
   --border-color: #e2e8f0;
   --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8; /* İŞTE BUTONU KURTARAN KOD */
   --color-success: #10b981;
 }
-
 [data-theme="dark"] {
   --bg-color: #0f172a;
   --card-bg: #1e293b;
   --text-color: #f8fafc;
   --text-muted: #94a3b8;
   --border-color: #334155;
-  --color-primary-hover: #60a5fa; /* İŞTE BUTONU KURTARAN KOD (KARANLIK MOD) */
 }
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+body { background-color: var(--bg-color); color: var(--text-color); }

@@ -50,7 +50,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, activeTaskId, onDelet
                       {prioInfo.label}
                     </span>
                     <span className="ff-task-pomodoro-badge">
-                      {task.pomodoros > 0 ? `🍅 Kalan: ${task.pomodoros} Seans` : '✅ Görev Bitti'}
+                      {task.pomodoros > 0 ? `⏳ Kalan: ${task.pomodoros} Seans` : '✅ Görev Bitti'}
                     </span>
                   </div>
                 </div>

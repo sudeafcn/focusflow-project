@@ -65,4 +65,51 @@ input[type="button"] {
     visibility: visible !important;
     transform: translateY(-2px) !important; /* Üstüne gelince hafif yukarı kalkma efekti */
   }
+  /* =========================================
+   SON RÖTUŞ: BUTON GARANTİSİ VE MOBİL UYUM
+   ========================================= */
+
+/* 1. Tüm Butonları Modern ve Mavi Yap (Masaüstündeki gri buton sorunu için) */
+button, 
+.btn, 
+input[type="submit"] {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  transition: all 0.2s ease !important;
+}
+
+button:hover, 
+.btn:hover, 
+input[type="submit"]:hover {
+  background-color: #1d4ed8 !important;
+  color: white !important;
+}
+
+/* 2. TELEFON EKRANLARI İÇİN ÖZEL KURALLAR (Mobildeki kayma sorunu için) */
+@media screen and (max-width: 768px) {
+  
+  /* Dar ekranlarda yan yana sığmayan butonları akıllıca alt satıra sarmasına izin ver */
+  div[style*="display: flex"],
+  .ff-workspace-bottom div,
+  .timer-container div {
+    flex-wrap: wrap !important; 
+    gap: 8px !important;
+  }
+
+  /* Mobilde butonları biraz küçült ve genişliklerini ekrana uydur */
+  button, 
+  .btn {
+    font-size: 0.85rem !important; 
+    padding: 8px 12px !important;
+    flex: 1 1 auto !important; /* Esnek kutu yapısı: Ekranı eşit paylaşırlar */
+    white-space: normal !important; /* Uzun yazılar dışarı taşmak yerine alt satıra geçer */
+  }
+}
 }

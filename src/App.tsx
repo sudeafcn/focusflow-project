@@ -105,11 +105,11 @@ function App() {
   };
 
 // --- TIMER VE GÖREV SENKRONİZASYON KODLARI ---
-  // Akıştaki ilk görevi aktif görev olarak kabul ediyoruz
-  const activeTask = tasks.length > 0 ? tasks[0] : null; 
+  // Listede henüz tamamlanmamış (isCompleted: false) ilk görevi hedef al
+  const activeTask = tasks.find(task => !task.isCompleted) || tasks[0] || null; 
   const currentSessions = activeTask ? activeTask.pomodoros : 0;
 
-  // Süre bittiğinde görevin seans sayısını otomatik 1 azaltan fonksiyon
+  // Süre bittiğinde o görevin seans sayısını otomatik 1 azaltan fonksiyon
   const handleSessionComplete = () => {
     if (!activeTask) return;
     setTasks((prevTasks) => prevTasks.map(task => {
@@ -119,6 +119,7 @@ function App() {
       return task;
     }));
   };
+  // ---------------------------------------------
   // ---------------------------------------------
   return (
     <div className="ff-landing-page">

@@ -93,6 +93,10 @@ function App() {
       setAiResult({ duration: pomodoros * 25, efficiencyScore, advice });
       setAiTaskName('');
       setIsAnalyzing(false);
+      
+      // İŞTE EKLENEN YENİ SATIR: Yeni görev eklendiğinde anında ona odaklan!
+      setActiveTaskId(newTask.id);
+
     }, 1200);
   };
 
@@ -105,19 +109,24 @@ function App() {
   };
 
   // --- TIMER VE GÖREV SENKRONİZASYON KODLARI ---
-  // Listede henüz tamamlanmamış (isCompleted: false) ilk görevi hedef al
-  const activeTask = tasks.find(task => !task.isCompleted) || tasks[0] || null; 
+  // Önce kullanıcının tıkladığı aktif görevi, yoksa tamamlanmamış ilk görevi hafızaya al
+  const activeTask = tasks.find(task => task.id === activeTaskId) || tasks.find(task => !task.isCompleted) || tasks[0] || null; 
   const currentSessions = activeTask ? activeTask.pomodoros : 0;
-
-  // Süre bittiğinde o görevin seans sayısını otomatik 1 azaltan fonksiyon
+  
+  // Süre bittiğinde o görevin seans sayısını hafıza kaybı olmadan 1 azaltan fonksiyon
   const handleSessionComplete = () => {
-    if (!activeTask) return;
-    setTasks((prevTasks) => prevTasks.map(task => {
-      if (task.id === activeTask.id && task.pomodoros > 0) {
-        return { ...task, pomodoros: task.pomodoros - 1 };
-      }
-      return task;
-    }));
+    setTasks((prevTasks) => {
+      // Fonksiyon tetiklendiği ANDAKİ en güncel aktif görevi içeriden buluyoruz (Stale Closure Çözümü)
+      const currentActive = prevTasks.find(t => t.id === activeTaskId) || prevTasks.find(t => !t.isCompleted) || prevTasks[0];
+      if (!currentActive) return prevTasks;
+
+      return prevTasks.map(task => {
+        if (task.id === currentActive.id && task.pomodoros > 0) {
+          return { ...task, pomodoros: task.pomodoros - 1 };
+        }
+        return task;
+      });
+    });
   };
   // ---------------------------------------------
 

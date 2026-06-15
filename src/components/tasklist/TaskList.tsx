@@ -31,6 +31,50 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, activeTaskId, onDelet
 
   return (
     <div className="ff-task-list-card">
+      
+      {/* --- NÜKLEER ÇÖZÜM: BİLEŞEN İÇİ MOBİL CSS ENJEKSİYONU --- */}
+      <style>
+        {`
+          @media screen and (max-width: 768px) {
+            .ff-task-item {
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: center !important;
+              text-align: center !important;
+              gap: 16px !important;
+              padding: 16px !important;
+            }
+            .ff-task-info {
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: center !important;
+              width: 100% !important;
+              gap: 10px !important;
+            }
+            .ff-task-meta {
+              justify-content: center !important;
+              flex-wrap: wrap !important;
+              width: 100% !important;
+            }
+            .ff-task-actions {
+              display: flex !important;
+              flex-direction: column !important;
+              width: 100% !important;
+              gap: 10px !important;
+              margin-top: 5px !important;
+            }
+            .ff-task-actions button {
+              width: 100% !important;
+              margin: 0 !important;
+              padding: 12px !important;
+              font-size: 15px !important;
+              white-space: normal !important;
+              border-radius: 8px !important;
+            }
+          }
+        `}
+      </style>
+
       <h3 className="ff-list-title">📋 Yapay Zeka Akışındaki Görevler ({tasks.length})</h3>
       
       {tasks.length === 0 ? (

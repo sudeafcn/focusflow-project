@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../Button/Button.scss';
 
 interface TimerProps {
@@ -7,12 +7,14 @@ interface TimerProps {
 }
 
 export default function Timer({ sessionsLeft, onSessionComplete }: TimerProps) {
-  // Sayaç modunu takip ediyoruz: 'work' (Çalışma) veya 'break' (Mola)
   const [mode, setMode] = useState<'work' | 'break'>('work');
   const [seconds, setSeconds] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
 
-  // Görev silinirse veya biterse sayacı sıfırla
+  // --- YENİ: ARKA PLAN UYKU SORUNUNU ÇÖZEN ZAMAN HAFIZASI ---
+  const lastTickRef = useRef<number | null>(null);
+
+  // Görev bittiğinde sıfırlama
   useEffect(() => {
     if (sessionsLeft === 0) {
       setIsActive(false);
@@ -21,53 +23,76 @@ export default function Timer({ sessionsLeft, onSessionComplete }: TimerProps) {
     }
   }, [sessionsLeft]);
 
-  // Geri sayım ve Modlar arası otomatik geçiş mantığı
+  // Sayaç ve Gerçek Zaman Hesaplaması
   useEffect(() => {
     let interval: any = null;
 
     if (isActive && seconds > 0) {
+      // Sayacı başlattığımızda o anki gerçek saati hafızaya alıyoruz
+      if (!lastTickRef.current) {
+        lastTickRef.current = Date.now();
+      }
+
       interval = setInterval(() => {
-        setSeconds((prev) => prev - 1);
+        const now = Date.now();
+        // Sadece 1 çıkarmak yerine, geçen GERÇEK saniyeyi (Delta Time) hesaplıyoruz
+        const deltaSeconds = Math.round((now - (lastTickRef.current || now)) / 1000);
+
+        if (deltaSeconds >= 1) {
+          setSeconds((prev) => {
+            const nextSeconds = prev - deltaSeconds;
+            return nextSeconds > 0 ? nextSeconds : 0; // Süre eksiye düşerse 0'a sabitle
+          });
+          lastTickRef.current = now; // Hafızayı son sayım zamanı ile güncelle
+        }
       }, 1000);
-    } else if (seconds === 0 && isActive) {
+    } else {
+      // Duraklatılırsa hafızayı temizle
+      lastTickRef.current = null;
+    }
+
+    // Süre Sıfırlandığında Mod Geçişleri
+    if (seconds === 0 && isActive) {
       setIsActive(false);
-      clearInterval(interval);
+      lastTickRef.current = null;
       
       if (mode === 'work') {
-        // --- ÇALIŞMA BİTTİ, MOLAYA GEÇ ---
-        onSessionComplete(); // Görevin seans sayısını 1 düşür
+        onSessionComplete();
         if (sessionsLeft > 1) {
           alert("Harika! Bir odaklanma seansını tamamladın. Şimdi 5 dakikalık mola zamanı! ☕");
           setMode('break');
-          setSeconds(5 * 60); // 5 dakika mola
+          setSeconds(5 * 60);
         } else {
           alert("Tebrikler! Bu görevin tüm seanslarını başarıyla bitirdin! 🎉");
           setMode('work');
           setSeconds(25 * 60);
         }
       } else {
-        // --- MOLA BİTTİ, ÇALIŞMAYA DÖN ---
         alert("Mola bitti! Yeni bir odaklanma seansına hazır mısın? 🚀");
         setMode('work');
-        setSeconds(25 * 60); // 25 dakika çalışma
+        setSeconds(25 * 60);
       }
     }
 
     return () => clearInterval(interval);
   }, [isActive, seconds, sessionsLeft, mode, onSessionComplete]);
 
-  const toggleTimer = () => setIsActive(!isActive);
+  const toggleTimer = () => {
+    setIsActive(!isActive);
+    if (isActive) lastTickRef.current = null; // Duraklatılınca zamanı dondur
+  };
   
   const resetTimer = () => {
     setIsActive(false);
+    lastTickRef.current = null;
     setMode('work');
     setSeconds(25 * 60);
   };
 
-  // Kullanıcının manuel olarak Mola veya Çalışma sekmesine geçmesi için
   const switchMode = (newMode: 'work' | 'break') => {
     setMode(newMode);
     setIsActive(false);
+    lastTickRef.current = null;
     setSeconds(newMode === 'work' ? 25 * 60 : 5 * 60);
   };
 
@@ -90,7 +115,6 @@ export default function Timer({ sessionsLeft, onSessionComplete }: TimerProps) {
             Kalan Seans: {sessionsLeft}
           </h3>
           
-          {/* --- ÇALIŞMA / MOLA GEÇİŞ BUTONLARI --- */}
           <div style={{ display: 'flex', gap: '5px', backgroundColor: '#e5e7eb', padding: '4px', borderRadius: '8px' }}>
             <button 
               onClick={() => switchMode('work')}
@@ -118,7 +142,6 @@ export default function Timer({ sessionsLeft, onSessionComplete }: TimerProps) {
         </div>
       )}
 
-      {/* Sayaç Metni (Moladayken Yeşil, Çalışırken Normal) */}
       <h2 style={{ 
         fontSize: '3.5rem', 
         margin: '0 0 20px 0', 
@@ -138,17 +161,23 @@ export default function Timer({ sessionsLeft, onSessionComplete }: TimerProps) {
           style={{ 
             opacity: sessionsLeft === 0 ? 0.5 : 1, 
             cursor: sessionsLeft === 0 ? 'not-allowed' : 'pointer', 
-            backgroundColor: mode === 'break' ? '#10b981' : '' 
+            backgroundColor: mode === 'break' ? '#10b981' : '#3b82f6',
+            color: 'white'
           }}
         >
           {isActive ? 'Durdur' : 'Başlat'}
         </button>
 
         <button
-          className="btn btn-danger"
+          className="btn"
           onClick={resetTimer}
           disabled={sessionsLeft === 0}
-          style={{ opacity: sessionsLeft === 0 ? 0.5 : 1, cursor: sessionsLeft === 0 ? 'not-allowed' : 'pointer' }}
+          style={{ 
+            opacity: sessionsLeft === 0 ? 0.5 : 1, 
+            cursor: sessionsLeft === 0 ? 'not-allowed' : 'pointer',
+            backgroundColor: '#ef4444',
+            color: 'white'
+          }}
         >
           Sıfırla
         </button>

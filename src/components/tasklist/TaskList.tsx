@@ -88,7 +88,9 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, activeTaskId, onDelet
             return (
               <div key={task.id} className={`ff-task-item ${task.isCompleted ? 'is-completed' : ''} ${isActive ? 'is-active-task' : ''}`}>
                 <div className="ff-task-info">
-                  <span className="ff-task-item-title">{task.title}</span>
+                  <span className="ff-task-item-title" style={{ textTransform: 'none', wordBreak: 'break-word' }}>
+  {task.title}
+</span>
                   <div className="ff-task-meta">
                     <span className="ff-task-item-category" style={{ color: prioInfo.color, fontWeight: 'bold' }}>
                       {prioInfo.label}
